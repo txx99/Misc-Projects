@@ -1,9 +1,8 @@
 # mathQuiz_ version 2.0
 import random
-import operator #  operator module for using various operations in our quiz
+import operator
 from decimal import *
 ops={'+':operator.add, '-':operator.sub, '*':operator.mul, '/':operator.truediv}  #define operators dictionary with key:value
-
 
 def main():
 	print ("Mad Minutes Quiz. Bienvenue.")
@@ -38,27 +37,23 @@ def quiz_range():
 def quiz(min, max, name):
 	score = 0 
 	total_q=0
-	while True: #   infinite loop
+	while True: #   infinite loop		
 		try:
 			r1=random.randint(min+1, max)
-			r2=random.randint(min, (r1-1)) #r2 always smaller bc dont want zeroerror in division 
-		except: #in case any issues with r2 selection due to r1 being too  
-			continue
-		opr=random.choice(list(ops.keys())) 
-		#    ops.keys() alone includes output 'dict_keys' which causes errors, therefore must use list()
-		ans=Decimal(ops[opr](r1, r2))
-		ans= float(ans.quantize(Decimal('0.1'), rounding=ROUND_HALF_UP))
-		# we are NOT going to use round() bc it rounds unpredictably bc of how floats are stored; @ https://stackoverflow.com/questions/34620633/how-does-rounding-in-python-work
-		# instead try Decimal(), instruct it to round up
-		# but this also sometimes doesnt compare correctly to ans ?? amybe another storage artefact
-		# so we'll convert it to float again
-		quest=input(f'{r1}{opr}{r2}= ') #use f-string to embed {variables} into a string #was going to use int() directly in quest but will cause error if not a numerical input...
-		#  making list for wrong answer responses to be randomly chosen from random.choice(list)
-		try: #lines that could produce error are anything checking the input value
+			r2=random.randint(min, (r1-1)) #r2 always smaller so we get simple questions
+			opr=random.choice(list(ops.keys())) 
+			#    ops.keys() alone includes output 'dict_keys' which causes errors, therefore must use list()
+			ans=Decimal(ops[opr](r1, r2))
+			ans= float(ans.quantize(Decimal('0.1'), rounding=ROUND_HALF_UP))
+			# we are NOT going to use round() bc it rounds unpredictably bc of how floats are stored; @ https://stackoverflow.com/questions/34620633/how-does-rounding-in-python-work
+			# instead try Decimal(), instruct it to round up
+			# but this also sometimes doesnt compare correctly to ans ?? amybe another storage artefact
+			# so we'll convert it to float again
+			quest=input(f'{r1}{opr}{r2}= ') #use f-string to embed {variables} into a string #was going to use int() directly in quest but will cause error if not a numerical input...
 			if quest=='end':
 				break
-			total_q += 1 #dont want to count 'end' question, so this after 
-			if ans==float(quest): #cant put int() inside quest= in case they want to 'end' quiz.
+			total_q += 1 #dont want to count 'end' question, so this after chekcing for 'end' 
+			if ans==float(quest): #cant put float() inside quest= in case they want to 'end' quiz.
 				print("...correct.")
 				score += 1
 			else:
@@ -67,6 +62,9 @@ def quiz(min, max, name):
 		except ValueError:#non numerical answer input will cause ValeuError
 			print("This is not imaginary math. Numbers only, please.")
 			continue
+		except ZeroDivisionError:
+			continue
+
 	return score, total_q
 
 
