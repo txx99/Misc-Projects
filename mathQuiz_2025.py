@@ -21,13 +21,14 @@ def quiz_range():
 		try:
 			min=int(input('Smallest number: '))
 			max=int(input("Largest number: "))
-			assert(min<max) # if assert() ==False, throws error --> except block
+			assert((min+1)<max) # if assert() ==False, throws error --> except block
+			# min+1 bc quiz uses range min:max-1
 			print ("Let's begin.")
 			# else:
 			# 	print("Please enter your range values in the order they appear.")
 			# 	continue #run loop again
 		except: #if you dont specify error type, will run except no matter what error 
-			print ("Please enter your range again as whole numbers.")
+			print ("Please try again. Enter your range as whole numbers that are at least 2 digits apart.")
 			continue #return to start of loop
 		else:
 			break # once try block runs without error, can exit the loop
