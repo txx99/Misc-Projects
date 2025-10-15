@@ -5,8 +5,8 @@ HTML-based interactive math quiz that asks basic arithmetic questions based on u
 
 
 ### mathQuiz_2025 improvements:
-- adds range assertion, \
-- handles zero division errors internally, \
+- adds range assertion, 
+- handles zero division errors internally, 
 - modularised functions
 
 
