@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mad Minutes Math Quiz</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 500px; margin: 40px auto; background: #f6f8fa; padding: 2em; border-radius: 10px; }
+    h2 { color: #1a73e8; }
+    label, p { font-size: 1.1em; }
+    input[type="number"], input[type="text"] { width: 80px; margin: 0 5px 10px 0; }
+    #quiz-section, #result-section { display: none; }
+    .correct { color: green; }
+    .wrong { color: #d93025; }
+    #question { font-size: 1.5em; margin: 1em 0; }
+    #feedback { margin: 1em 0; }
+    button { padding: 0.5em 1.5em; margin: 0.5em 0.5em 0.5em 0; }
+  </style>
+</head>
+<body>
+  <h2>Mad Minutes Quiz. Bienvenue.</h2>
+  <p>*****<br>
+  Answer non-integer answers to <strong>1 decimal place</strong>.<br>
+  To end the quiz, type <code>end</code>.<br>
+  *****</p>
+
+  <div id="setup-section">
+    <label>
+      Our examinee today is:
+      <input type="text" id="username" required>
+    </label>
+    <br>
+    <p>Input the range of numbers you would like to be quizzed on.</p>
+    <label>
+      Smallest number:
+      <input type="number" id="min" required>
+    </label>
+    <label>
+      Largest number:
+      <input type="number" id="max" required>
+    </label>
+    <br>
+    <button onclick="startQuiz()">Let's Begin!</button>
+    <div id="setup-error" class="wrong"></div>
+  </div>
+
+  <div id="quiz-section">
+    <div id="question"></div>
+    <input type="text" id="answer" autocomplete="off" placeholder="Your answer or 'end'">
+    <button onclick="submitAnswer()">Submit</button>
+    <div id="feedback"></div>
+    <div id="score"></div>
+  </div>
+
+  <div id="result-section">
+    <h3>End of Quiz.</h3>
+    <p id="final-score"></p>
+    <button onclick="location.reload()">Restart</button>
+  </div>
+
+<script>
+let min, max, username;
+let score = 0, total_q = 0;
+let r1, r2, opr, ans;
+const ops = {
+  '+': (a, b) => a + b,
+  '-': (a, b) => a - b,
+  '*': (a, b) => a * b,
+  '/': (a, b) => a / b
+};
+const wrongMessages = [
+  (a) => `Uh oh. It was ${a}. Try again.`,
+  "Not according to this dimension's mathematics.",
+  (a) => `Um, it's actually ${a}...`,
+  "Would you like to phone a friend?",
+];
+
+function startQuiz() {
+  document.getElementById('setup-error').textContent = '';
+  username = document.getElementById('username').value.trim();
+  min = parseInt(document.getElementById('min').value, 10);
+  max = parseInt(document.getElementById('max').value, 10);
+
+  if (!username) {
+    document.getElementById('setup-error').textContent = "Please enter your name.";
+    return;
+  }
+  if (isNaN(min) || isNaN(max) || min >= max-1) {
+    document.getElementById('setup-error').textContent = "Please try again. Enter your range as whole numbers that are at least 2 digits apart.";
+    return;
+  }
+
+  score = 0; total_q = 0;
+  document.getElementById('setup-section').style.display = 'none';
+  document.getElementById('quiz-section').style.display = 'block';
+  nextQuestion();
+}
+
+function nextQuestion() {
+  // r1 in [min+1, max], r2 in [min, r1-1], so r2 always < r1
+  r1 = getRandomInt(min+1, max+1); // inclusive
+  r2 = getRandomInt(min, r1);
+  opr = randomChoice(Object.keys(ops));
+  ans = ops[opr](r1, r2);
+  ans = Math.round(ans * 10) / 10; // 1 decimal place
+
+  // For division, ensure denominator is not 0 and result is not too long
+  if (opr === '/' && r2 === 0) {
+    nextQuestion();
+    return;
+  }
+  document.getElementById('question').textContent = `${r1} ${opr} ${r2} = ?`;
+  document.getElementById('answer').value = '';
+  document.getElementById('feedback').textContent = '';
+  updateScore();
+  document.getElementById('answer').focus();
+}
+
+function submitAnswer() {
+  const input = document.getElementById('answer').value.trim();
+  if (input.toLowerCase() === 'end') {
+    endQuiz();
+    return;
+  }
+  total_q++;
+  let correct = false;
+  let userAns = Number(input);
+
+  if (isNaN(userAns)) {
+    document.getElementById('feedback').textContent = "This is not imaginary math. Numbers only, please.";
+    document.getElementById('feedback').className = "wrong";
+    total_q--; // do not count invalid input toward total questions
+    return;
+  }
+
+  if (Math.abs(userAns - ans) < 0.09) { // floating pt tolerance for 1 decimal place
+    score++;
+    document.getElementById('feedback').textContent = "...correct.";
+    document.getElementById('feedback').className = "correct";
+  } else {
+    let msg = randomChoice(wrongMessages);
+    if (typeof msg === "function") msg = msg(ans);
+    document.getElementById('feedback').textContent = msg;
+    document.getElementById('feedback').className = "wrong";
+  }
+  updateScore();
+  setTimeout(nextQuestion, 900);
+}
+
+function endQuiz() {
+  document.getElementById('quiz-section').style.display = 'none';
+  document.getElementById('result-section').style.display = 'block';
+  document.getElementById('final-score').textContent = `${username}'s Grade: ${score}/${total_q}`;
+}
+
+// Utility helpers
+function getRandomInt(min, max) { // [min, max)
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+function randomChoice(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+function updateScore() {
+  document.getElementById('score').textContent = `Score: ${score} / ${total_q}`;
+}
+
+// Allow pressing Enter to submit answer
+document.getElementById('answer').addEventListener('keyup', function(e) {
+  if (e.key === 'Enter') submitAnswer();
+});
+</script>
+</body>
+</html>
