@@ -1,6 +1,6 @@
 ### Miscellaneous Projects
 ## ECG anomaly data
-Preprocessing of 4998 x 141 ECG dataset, followed by autoencoder application. 
+Compile 2 Keras autoencoders for labeling anomolous ECG data (4998 x 141).  
 
 ## Math Quiz
 ### mathQuiz_2025_GUI.html
