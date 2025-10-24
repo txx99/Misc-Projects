@@ -1,5 +1,5 @@
 ## ECG anomaly
-Compile and compare 2 Keras autoencoders for determining anomolous ECG data. \
+Compile and compare 2 Keras autoencoders for labeling anomolous ECG data. \
 ECG dataset of 4998 subject over 140 timepoints. Target labels in last column indicate whether an anomaly is present. Keras models used are: 
 1. Functional API and 
 2. Model Subclassing (using Sequential API layers).
