@@ -4,8 +4,8 @@ ECG dataset of 4998 subject over 140 timepoints. Target labels in last column in
 1. Functional API and 
 2. Model Subclassing (using Sequential API layers).
    
-*Script/main.ipynb* presents data preprocessing and autoencoder application.\
-*Script/ECG_plotting.m* is a MatLab script that creates a graph overlaying all raw ECG data.
+**Script/main.ipynb** presents data preprocessing and autoencoder application.\
+**Script/ECG_plotting.m** is a MatLab script that creates a graph overlaying all raw ECG data.
 
 
 ### Credits
