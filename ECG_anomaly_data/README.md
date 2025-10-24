@@ -1,8 +1,9 @@
 ## ECG anomaly
 Compile and compare 2 Keras autoencoders for determining anomolous ECG data. \
-ECG dataset of 4998 subject over 140 timepoints. Target labels in last column indicate whether an anomaly is present. Keras models used are: \
-1. Functional API and \
-2. Model Subclassing (using Sequential API layers). \
+ECG dataset of 4998 subject over 140 timepoints. Target labels in last column indicate whether an anomaly is present. Keras models used are: 
+1. Functional API and 
+2. Model Subclassing (using Sequential API layers).
+   
 *Script/main.ipynb* presents data preprocessing and autoencoder application.\
 *Script/ECG_plotting.m* is a MatLab script that creates a graph overlaying all raw ECG data.
 
