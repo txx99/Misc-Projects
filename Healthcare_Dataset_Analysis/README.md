@@ -1,4 +1,6 @@
+## Healthcare Dataset Analysis
 
+Exploring synthetic healthcare dataset (55,500 x 15) retrieved from [P. Patils' kaggle](https://www.kaggle.com/datasets/prasad22/healthcare-dataset). \
 **Columns:**
 Name: Names of the patients admitted to the hospital.
 Age: Age of the patients at the time of admission.
