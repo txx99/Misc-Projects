@@ -2,7 +2,7 @@
 
 ## Healthcare Dataset Analysis
 
-Exploring synthetic healthcare dataset (55,500 x 15) retrieved from [P. Patils' kaggle](https://www.kaggle.com/datasets/prasad22/healthcare-dataset). Dataset includes equally distributed data on patient demographics, patient health and care, and healthcare providers.
+Exploring synthetic healthcare dataset (55,500 x 15) retrieved from [P. Patil's kaggle](https://www.kaggle.com/datasets/prasad22/healthcare-dataset). Dataset includes equally distributed data on patient demographics, patient health and care, and healthcare providers.
 
 ## Math Quiz
 #### mathQuiz_2025_GUI.html
