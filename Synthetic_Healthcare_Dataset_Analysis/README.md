@@ -1,6 +1,11 @@
 ## Healthcare Dataset Analysis
 
-Exploring synthetic healthcare dataset (55,500 x 15) retrieved from [P. Patil's kaggle](https://www.kaggle.com/datasets/prasad22/healthcare-dataset). \
+This notebook will explore and answer specific questions regarding the synthetic healthcare data (55,500 x 15) retrieved from [P. Patil's kaggle](https://www.kaggle.com/datasets/prasad22/healthcare-dataset). It also follows some of the exploratory coding done by [M. Furqan](https://www.kaggle.com/code/muhammadfurqan0/unlocking-healthcare-trends-data-analysis/notebook).
+
+Synthetic dataset of 55,500 x 15 includes equally distributed data on patient demographics, patient health and care, and healthcare providers.
+
+### Dataset Description
+
 **Columns:**
 - Name: Names of the patients admitted to the hospital.
 - Age: Age of the patients at the time of admission.
